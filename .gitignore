@@ -12,4 +12,4 @@ Backend/node_modules/
 .env
 
 # Ignore the 'public' directory in the backend
-backend/public/
+Backend/public/
