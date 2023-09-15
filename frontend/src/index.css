@@ -6,11 +6,11 @@ body{
 
 
   .btn-manage{
-    width: 80px; 
+    width: calc(fit-content + 2rem);
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: space-between;
 
   }
 

@@ -91,7 +91,5 @@ router.get('/find/:email', async (req, res) => {
     }
 })
 
-module.exports = {
-    mainUserRouter: router
-}
+module.exports = router
 

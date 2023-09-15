@@ -113,6 +113,4 @@ router.get('/stream/:file', async (req, res, next) => {
 })
 
 
-module.exports = {
-    userRouter: router
-}
+module.exports = router

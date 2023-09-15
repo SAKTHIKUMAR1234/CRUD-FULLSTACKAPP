@@ -8,29 +8,28 @@ import { useEffect, useState } from "react";
 import { deleteUser } from "../util/deleteUser";
 import { getAllUser } from "../util/getAllUser";
 import { downloadImage } from "../util/downloadImage";
+import LodingSpinner from './LoadingSpinner'
 
 export var updateValue;
 
 const Table = () => {
     const navigate = useNavigate();
     const [disabled, setDisable] = useState(false);
+    const [loading,isLoading] = useState(true);
     const [users, setUsers] = useState([])
     const getUsers = async () => {
         const data = await getAllUser();
-
-        //console.log(data);
-
         if (data === false) {
             navigate('/')
         }
         else {
             setUsers(data);
+           isLoading(false);
         }
     }
 
 
-    useEffect(() =>
-     getUsers, []);
+    useEffect(() =>getUsers, []);
 
 
     const removeUser = async (email) => {
@@ -54,6 +53,10 @@ const Table = () => {
 
     return (
         <>
+            {loading?
+
+            <LodingSpinner />
+            :
             <table className="styled-table">
                 <thead>
                     <tr>
@@ -97,6 +100,8 @@ const Table = () => {
                     })}
                 </tbody>
             </table>
+
+            }
         </>
     );
 }
