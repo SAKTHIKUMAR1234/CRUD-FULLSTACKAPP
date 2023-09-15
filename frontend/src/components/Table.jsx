@@ -29,6 +29,8 @@ const Table = () => {
     }
 
 
+
+
     useEffect(() =>getUsers, []);
 
 

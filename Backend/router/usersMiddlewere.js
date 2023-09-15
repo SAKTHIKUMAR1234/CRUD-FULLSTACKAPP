@@ -1,11 +1,17 @@
 const jwtServices = require('../util/getJWT')
 const CustomeError = require('../util/customeError');
+const { findUser } = require('../database/services/mainUserServices/operations');
 
 
-const auth=(req,res,next) => {
+
+const auth=async (req,res,next) => {
     try {
         if (req.cookies.authtoken) {
-            if (jwtServices.verifyToken(req.cookies.authtoken)) {
+
+            const user=(jwtServices.verifyToken(req.cookies.authtoken)).user;
+            const result=await findUser(user);
+            if (result.length==1) {
+                res.cookie('authtoken',req.cookies.authtoken,{ expires: new Date(Date.now() + (1000 * 60 * 60)), httpOnly: true })
                 next();
             }
             else{
