@@ -5,7 +5,7 @@ const { instanceofDB } = require('../../models/connection')
 const getUsers = async () => {
     try {
         const con = instanceofDB();
-        let result = await con.query('select * from Userdetails order by dateofupdation desc limit 10');
+        let result = await con.query('select * from Userdetails order by dateofupdation desc');
         result = format(result.rows);
         return result;
     } catch (error) {

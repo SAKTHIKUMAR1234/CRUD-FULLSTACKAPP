@@ -75,3 +75,22 @@ export const logoutMainUser = async () =>{
     }
 }
 
+export const regenerateURL = async (email) =>{
+    try {
+        const responce = await axios.get(`http://localhost:5000/mainUser/regenerateurl/${email}`,{
+            headers:{
+                'Content-Type':'application/json'
+            },
+            withCredentials:true
+        })
+        if(responce.status===200){
+            return true;
+        }
+        else{
+            return false;
+        }
+    } catch (error) {
+        
+    }
+}
+

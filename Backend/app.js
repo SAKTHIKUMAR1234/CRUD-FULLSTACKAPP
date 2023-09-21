@@ -8,6 +8,7 @@ const dotenv = require('dotenv');
 const ErrorHandler = require('./util/errorHandler');
 const path=require('path')
 
+
 app.use(cookieParser());
 app.use(express.json());
 app.use(cors({ origin: true, credentials: true }));

@@ -1,0 +1,43 @@
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.pagination li {
+    margin-right: 5px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    cursor: pointer;
+    border-radius: 10px;
+    min-width: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination li.active {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+.pagination li.previous,
+.pagination li.next {
+    font-weight: bold;
+}
+
+.pagination li.previous {
+    margin-right: 10px;
+}
+
+.pagination li.next {
+    margin-left: 10px;
+}
+
+
+.paginate-div{
+    display: flex;
+    justify-content: center;
+}

@@ -9,14 +9,27 @@ import { deleteUser } from "../util/deleteUser";
 import { getAllUser } from "../util/getAllUser";
 import { downloadImage } from "../util/downloadImage";
 import LodingSpinner from './LoadingSpinner'
+import ReactPaginate from 'react-paginate';
+import './styles/paginater.css'
+
 
 export var updateValue;
 
 const Table = () => {
     const navigate = useNavigate();
     const [disabled, setDisable] = useState(false);
-    const [loading,isLoading] = useState(true);
+    const [loading, isLoading] = useState(true);
     const [users, setUsers] = useState([])
+
+    const itemsPerPage = 2;
+    const [currentPage, setCurrentPage] = useState(0);
+
+    const handlePageClick = ({ selected }) => {
+        setCurrentPage(selected);
+    };
+
+    const offset = currentPage * itemsPerPage;
+    const currentPageData = users.slice(offset, offset + itemsPerPage);
     const getUsers = async () => {
         const data = await getAllUser();
         if (data === false) {
@@ -24,14 +37,14 @@ const Table = () => {
         }
         else {
             setUsers(data);
-           isLoading(false);
+            isLoading(false);
         }
     }
 
 
 
 
-    useEffect(() =>getUsers, []);
+    useEffect(() => getUsers, []);
 
 
     const removeUser = async (email) => {
@@ -42,7 +55,7 @@ const Table = () => {
                 getUsers();
                 setDisable(false);
             }
-            else{
+            else {
                 navigate('/');
             }
 
@@ -55,55 +68,72 @@ const Table = () => {
 
     return (
         <>
-            {loading?
+            {loading ?
 
-            <LodingSpinner />
-            :
-            <table className="styled-table">
-                <thead>
-                    <tr>
-                        <th>Profile Picture</th>
-                        <th>Email</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Mobile No</th>
-                        <th>Date Of Birth</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {users.map((e) => {
-                        return (
-                            <tr key={e.email}>
-                                <td>
-                                    <img src={'http://localhost:5000/'+e.profilepath}  className="profile-img" alt="profile" />
-                                </td>
-                                <td>{e.email}</td>
-                                <td>{e.fname}</td>
-                                <td>{e.lname}</td>
-                                <td>{e.mobile}</td>
-                                <td>{e.dob}</td>
-                                <td>
-                                    <div className="action-cls">
-                                        <div><Button type='button' text='Edit' icon={AiTwotoneEdit} className='btn' onclick={() => {
-                                            updateValue = e
-                                            navigate('/edit')
-                                        }}></Button></div>
-                                        <div><Button type='button' text='Delete' icon={MdDelete} className='btn' onclick={() => {
-                                            removeUser(e.email)
-                                        }} isDisabled={disabled}></Button></div>
-                                        <div><Button type='button' text='Download' icon={FaDownload} className='btn' onclick={() => {
-                                            downloadImage(e.profilepath);
-                                        }} isDisabled={disabled}></Button></div>
-                                    </div>
-                                </td>
-                            </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
+                <LodingSpinner />
+                :
+                <div>
+                    <div>
+                        <table className="styled-table">
+                            <thead>
+                                <tr>
+                                    <th>Profile Picture</th>
+                                    <th>Email</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Mobile No</th>
+                                    <th>Date Of Birth</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {currentPageData.map((e) => {
+                                    return (
+                                        <tr key={e.email}>
+                                            <td>
+                                                <img src={'http://localhost:5000/' + e.profilepath} className="profile-img" alt="profile" />
+                                            </td>
+                                            <td>{e.email}</td>
+                                            <td>{e.fname}</td>
+                                            <td>{e.lname}</td>
+                                            <td>{e.mobile}</td>
+                                            <td>{e.dob}</td>
+                                            <td>
+                                                <div className="action-cls">
+                                                    <div><Button type='button' text='Edit' icon={AiTwotoneEdit} className='btn' onclick={() => {
+                                                        updateValue = e
+                                                        navigate('/edit')
+                                                    }}></Button></div>
+                                                    <div><Button type='button' text='Delete' icon={MdDelete} className='btn' onclick={() => {
+                                                        removeUser(e.email)
+                                                    }} isDisabled={disabled}></Button></div>
+                                                    <div><Button type='button' text='Download' icon={FaDownload} className='btn' onclick={() => {
+                                                        downloadImage(e.profilepath);
+                                                    }} isDisabled={disabled}></Button></div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className="paginate-div">
+                        <ReactPaginate
+                            previousLabel="Previous"
+                            nextLabel="Next"
+                            breakLabel='....'
+                            pageCount={Math.ceil(users.length / itemsPerPage)}
+                            onPageChange={handlePageClick}
+                            containerClassName="pagination"
+                            activeClassName="active"
+                        />
+                    </div>
+                </div>
+
 
             }
+
         </>
     );
 }

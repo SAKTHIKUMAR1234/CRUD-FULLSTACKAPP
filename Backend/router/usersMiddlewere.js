@@ -7,7 +7,6 @@ const { findUser } = require('../database/services/mainUserServices/operations')
 const auth=async (req,res,next) => {
     try {
         if (req.cookies.authtoken) {
-
             const user=(jwtServices.verifyToken(req.cookies.authtoken)).user;
             const result=await findUser(user);
             if (result.length==1) {

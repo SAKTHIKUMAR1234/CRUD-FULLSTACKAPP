@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import LoginForm from '../components/LoginForm'
 import { getLoginDetails } from '../components/LoginForm'
 import { emailValidation } from '../util/Validation'
-import { isExist, validateMainUser } from '../util/MainUser'
+import { isExist, regenerateURL, validateMainUser } from '../util/MainUser'
 
 
 const Login = () => {
@@ -29,14 +29,29 @@ const Login = () => {
         }
         else{
             if(await isExist(details[0])){
-                await validateMainUser(details).then(res=>{
-                    if(res.status==200){
+                await validateMainUser(details).then(async (res)=>{
+                    if(res.status===200){
                         setDisabled(false);
                         navigate('/home');
                     }
                     else{
-                        alert("Wrong Password");
-                        setDisabled(false);
+
+                        if(res.response.status===305){
+                            alert("The User Id is not confirmed! An regenerated confirm mail is sent to you !!!");
+                            const response =await regenerateURL(details[0]);
+                            if(response){
+                                alert("Mail Sended Successfully Check Your Mail");
+                            }
+                            else{
+                                alert("Unable To send the email");
+                            }
+                            setDisabled(false);
+                        }
+                        else{
+                            alert("Wrong Password");
+                            setDisabled(false);
+                        }
+                       
                     }
                 });
             }

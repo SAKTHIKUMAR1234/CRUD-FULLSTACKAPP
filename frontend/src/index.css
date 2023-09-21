@@ -1,6 +1,7 @@
 body{
   font-size: 16px;
   font-family: 'Poppins', sans-serif;
+
 }
 
 
@@ -16,13 +17,15 @@ body{
 
 
   .styled-table {
+
+    background-color: white;
     margin: 25px 0;
     font-size: 0.9em;
     min-width: max-content;
     border-collapse: collapse;
     border-radius: 30px;
     border-style: hidden; 
-    box-shadow: 0 0 2rem #000000;
+    box-shadow: 0 0 1.5rem 2px #000000;
     overflow: hidden;
 }
 
@@ -150,4 +153,5 @@ input::-webkit-inner-spin-button {
 
 .profile-img{
   width: 100px;
+  height: 50px
 }

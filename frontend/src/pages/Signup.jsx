@@ -42,6 +42,7 @@ const Signup = () => {
             }
         }else{
             alert("Please Check All the Data!!!");
+            setDisabled(false)
         }
     }
 

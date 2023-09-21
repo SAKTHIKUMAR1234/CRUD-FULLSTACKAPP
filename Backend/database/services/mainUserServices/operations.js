@@ -5,8 +5,11 @@ const { instanceofDB } = require("../../models/connection");
 const addUser = async (data) => {
     try {
         const con = instanceofDB();
-        const result = await con.query('insert into mainuser (fname,lname,mobile,email,password) values($1,$2,$3,$4,$5)', data);
-        return result;
+        const userData = data.slice(0,5);
+        const verificationData = data.slice(5);
+        await con.query('insert into mainuser (fname,lname,mobile,email,password) values($1,$2,$3,$4,$5)', userData);
+        await con.query('insert into loginEmailStatus (emailid,verificationtoken) values($1,$2)',verificationData);
+        return true;
     } catch (error) {
         return error;
     }
