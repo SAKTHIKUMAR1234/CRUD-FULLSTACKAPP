@@ -9,6 +9,7 @@ const ErrorHandler = require('./util/errorHandler');
 const path=require('path')
 
 
+
 app.use(cookieParser());
 app.use(express.json());
 app.use(cors({ origin: true, credentials: true }));
@@ -19,8 +20,8 @@ dotenv.config()
 
 
 app.use(ErrorHandler);
-app.listen(process.env.PORT, () => {
+const server = app.listen(process.env.PORT, () => {
     console.log(`Server is running on port number : --> ${process.env.PORT}`);
 });
 
-module.exports = app
+module.exports = app,server

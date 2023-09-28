@@ -7,7 +7,8 @@ const jwtServices = require('../util/getJWT');
 const CustomeError = require('../util/customeError');
 const emailSender = require('../util/verificationEmailSender');
 const validationService = require('../database/services/mainUserServices/views/mainUserViews');
-
+const axios = require('axios')
+const mailTrigger = require('../util/socketConnection')
 
 
 const vericationResults = [`Successfully Verified 
@@ -15,22 +16,24 @@ Login To Continue : <a href="http://localhost:5173">User Login</a>`, `The Link h
     Please Login to Resend the Valiation Code <a href="http://localhost:5173">User Login</a>`];
 
 
-router.post('/createUser', async (req, res) => {
+
+router.post('/createUser', async (req, res, next) => {
     try {
         const body = req.body;
         const pwd = await encryptor.getHash(req.body.password1);
         const token = jwtServices.getTokenURL(req.body.email);
-        const result = await emailSender(req.body.email, token);
-        if (result) {
-            const details = [body.fname, body.lname, body.mobile, body.email, pwd, body.email, token];
-            await service.addUser(details).then(result => {
-                res.status(responce.getStatus(result)).json(responce.getMessage(result));
-            });
-        }
-        else {
-            const err = new CustomeError(500);
-            next(err);
-        }
+        const details = [body.fname, body.lname, body.mobile, body.email, pwd, body.email, token];
+        mailTrigger(req.body.email,token);
+        const result =await axios.post(process.env.MICROSERVICE_MAIL,{
+            "email" : req.body.email,
+            "token" : token
+        });
+        console.log(result.status)
+        // await service.addUser(details).then(result => {
+        //     res.status(responce.getStatus(result)).json(responce.getMessage(result));
+        // });
+        res.status(200).json({"M":"m"})
+
     } catch (error) {
         console.log(error);
         const err = new CustomeError(500);
@@ -104,7 +107,7 @@ router.get('/logout', (req, res, next) => {
 })
 
 
-router.get('/find/:email', async (req, res) => {
+router.get('/find/:email', async (req, res, next) => {
 
     try {
         const data = req.params.email;
@@ -118,7 +121,7 @@ router.get('/find/:email', async (req, res) => {
     }
 })
 
-router.get('/verify/:token', async (req, res) => {
+router.get('/verify/:token', async (req, res, next) => {
     const token = req.params.token;
     try {
         const data = jwtServices.verifyToken(token);
@@ -142,23 +145,15 @@ router.get('/verify/:token', async (req, res) => {
     }
 })
 
-router.get('/regenerateurl/:email', async (req, res) => {
+router.get('/regenerateurl/:email', async (req, res, next) => {
     try {
         const email = req.params.email;
         const token = jwtServices.getTokenURL(email);
-        const result = await emailSender(email, token);
-        if (result) {
-            const data = [token, email];
-            await validationService.updateMainUserVerification(data).then(dbresponse => {
-                res.status(responce.getStatus(dbresponse)).json(responce.getMessage(dbresponse));
-            });
-
-        }
-        else {
-            console.log(result);
-            const err = new CustomeError(500);
-            next(err);
-        }
+        emailSender(email, token);
+        const data = [token, email];
+        await validationService.updateMainUserVerification(data).then(dbresponse => {
+            res.status(responce.getStatus(dbresponse)).json(responce.getMessage(dbresponse));
+        });
     } catch (error) {
         console.log(error);
         const err = new CustomeError(500);

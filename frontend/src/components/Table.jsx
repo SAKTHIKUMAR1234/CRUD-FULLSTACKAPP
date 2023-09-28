@@ -21,7 +21,7 @@ const Table = () => {
     const [loading, isLoading] = useState(true);
     const [users, setUsers] = useState([])
 
-    const itemsPerPage = 2;
+    const itemsPerPage = 10;
     const [currentPage, setCurrentPage] = useState(0);
 
     const handlePageClick = ({ selected }) => {

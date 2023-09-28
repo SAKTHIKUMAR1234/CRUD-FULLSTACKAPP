@@ -1,5 +1,6 @@
 const nodeMailer = require('nodemailer')
 
+
 const sender = nodeMailer.createTransport({
     service:'gmail',
     auth:{
@@ -9,6 +10,7 @@ const sender = nodeMailer.createTransport({
 });
 
 const emailSender =async (email,token) =>{
+    
 
     const mailConfigurations = {
   
@@ -24,6 +26,7 @@ const emailSender =async (email,token) =>{
     };
 
     const result = await sender.sendMail(mailConfigurations);
+
 
     if(result instanceof Error){
         console.log(result);

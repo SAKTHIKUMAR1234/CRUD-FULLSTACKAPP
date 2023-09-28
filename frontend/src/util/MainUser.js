@@ -64,7 +64,7 @@ export const logoutMainUser = async () =>{
             withCredentials:true
         });
 
-        if(response.status==200){
+        if(response.status===200){
             return true;
         }
         else{
