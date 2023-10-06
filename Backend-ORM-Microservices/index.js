@@ -4,24 +4,28 @@ const cors = require('cors')
 const dotenv = require('dotenv')
 const router = require('./router/index')
 const errorHandler = require('./util/errorHandler')
+const cookies = require('cookie-parser')
 require('./models/associatons')
+const db = require('./config/database')
 
 
-dotenv.config()
-app.use(cors({
-    origin: true,
-    credentials: true,
-}))
-app.use(express.json())
-app.use(errorHandler)
-app.use(router)
+
+app.use(cookies())
+app.use(express.json({extended:true}))
+app.use(cors({ origin: true, credentials: true }))
 app.use(express.urlencoded({ extended: true }))
+app.use(router)
+dotenv.config()
 
+app.use(errorHandler)
 
-
-app.listen(process.env.PORT, () => {
-    console.log("Main API GATEWAY--->" + process.env.PORT)
+db.sync({alter:true}).then(() => {
+    app.listen(process.env.PORT, () => {
+        console.log("Main API GATEWAY--->" + process.env.PORT)
+    })
 })
+
+
 
 
 

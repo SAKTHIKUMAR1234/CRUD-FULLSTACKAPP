@@ -5,7 +5,7 @@ export const deleteUser=async (email)=>{
 
     
     try {
-      const res= await axios.delete(`http://localhost:5000/Users/delete/${email}`,{
+      const res= await axios.delete(`http://localhost:5000/auth/user/delete/${email}`,{
         withCredentials:true,
        });
 

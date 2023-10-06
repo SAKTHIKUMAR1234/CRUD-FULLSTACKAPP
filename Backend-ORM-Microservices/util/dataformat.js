@@ -1,4 +1,4 @@
-const format=(data)=>{
+const dateFormater=(data)=>{
     for(index=0;index<data.length;index++){
         const date=new Date(data[index].dob);
         const dd=((date.getDate()+"").padStart(2,'0'));
@@ -9,6 +9,4 @@ const format=(data)=>{
     return data;
 }
 
-module.exports={
-    format
-}
+module.exports=dateFormater

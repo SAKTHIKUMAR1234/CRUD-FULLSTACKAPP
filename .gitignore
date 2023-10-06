@@ -13,3 +13,5 @@ Backend/node_modules/
 
 # Ignore the 'public' directory in the backend
 Backend/public
+
+Backend-ORM-Microservices/User-microservice/uploads/

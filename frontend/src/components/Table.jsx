@@ -73,7 +73,7 @@ const Table = () => {
                 <LodingSpinner />
                 :
                 <div>
-                    <div>
+                    <div className="table-responsive">
                         <table className="styled-table">
                             <thead>
                                 <tr>
@@ -91,13 +91,13 @@ const Table = () => {
                                     return (
                                         <tr key={e.email}>
                                             <td>
-                                                <img src={'http://localhost:5000/' + e.profilepath} className="profile-img" alt="profile" />
+                                                <img src={'http://localhost:5000/auth/' + e.profilepicname} className="profile-img" alt="profile" />
                                             </td>
                                             <td>{e.email}</td>
                                             <td>{e.fname}</td>
                                             <td>{e.lname}</td>
                                             <td>{e.mobile}</td>
-                                            <td>{e.dob}</td>
+                                            <td>{(e.dob)}</td>
                                             <td>
                                                 <div className="action-cls">
                                                     <div><Button type='button' text='Edit' icon={AiTwotoneEdit} className='btn' onclick={() => {
@@ -108,7 +108,7 @@ const Table = () => {
                                                         removeUser(e.email)
                                                     }} isDisabled={disabled}></Button></div>
                                                     <div><Button type='button' text='Download' icon={FaDownload} className='btn' onclick={() => {
-                                                        downloadImage(e.profilepath);
+                                                        downloadImage(e.profilepicname);
                                                     }} isDisabled={disabled}></Button></div>
                                                 </div>
                                             </td>

@@ -4,7 +4,7 @@ export const getAllUser = async () => {
 
     try {
         const res = await axios
-            .get("http://localhost:5000/users/getAll", {
+            .get("http://localhost:5000/auth/user/getAll", {
                 withCredentials: true
             })
             .then((response) => {

@@ -1,4 +1,4 @@
-body{
+body {
   font-size: 16px;
   font-family: 'Poppins', sans-serif;
 
@@ -6,27 +6,29 @@ body{
 
 
 
-  .btn-manage{
-    width: calc(fit-content + 2rem);
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
+.btn-manage {
+  width: calc(fit-content + 2rem);
+  min-width: max-content;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
 
-  }
+}
 
 
-  .styled-table {
 
-    background-color: white;
-    margin: 25px 0;
-    font-size: 0.9em;
-    min-width: max-content;
-    border-collapse: collapse;
-    border-radius: 30px;
-    border-style: hidden; 
-    box-shadow: 0 0 1.5rem 2px #000000;
-    overflow: hidden;
+.styled-table {
+
+  background-color: white;
+  margin: 25px 0;
+  font-size: 0.9em;
+  min-width: max-content;
+  border-collapse: collapse;
+  border-radius: 30px;
+  border-style: hidden;
+  box-shadow: 0 0 1.5rem 2px #000000;
+  overflow: hidden;
 }
 
 .styled-table thead tr {
@@ -34,29 +36,32 @@ body{
   color: #ffffff;
   text-align: center;
   height: 4rem;
+  overflow-x: auto;
 }
 
 
-.styled-table th,td {
-    padding: 12px 15px;
+.styled-table th,
+td {
+  padding: 12px 15px;
 }
 
 
 .styled-table tbody tr {
   border-bottom: 1px solid #dddddd;
+  overflow-x:auto;
 }
 
 tr:nth-child(even) {
   background-color: rgb(190, 197, 190);
-  
+
 }
 
-.body{
+.body {
   justify-content: center;
 }
 
 
-.action-cls{
+.action-cls {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -64,7 +69,7 @@ tr:nth-child(even) {
 
 }
 
-.main-form{
+.main-form {
   width: 50%;
   display: flex;
   flex-direction: column;
@@ -80,21 +85,23 @@ tr:nth-child(even) {
   justify-content: center;
 }
 
-.main-form-div{
+.main-form-div {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 
 }
 
-.main-form-div:first-child{
+.main-form-div:first-child {
   padding-top: 3%;
 }
 
-.main-form-div:last-child{
+.main-form-div:last-child {
   padding-bottom: 1%;
 }
 
-.input,input,textarea{
+.input,
+input,
+textarea {
   width: 100%;
   height: fit-content;
   padding: 12px 20px;
@@ -115,7 +122,7 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-.error{
+.error {
   box-shadow: 0 0 1em red;
 }
 
@@ -139,19 +146,19 @@ input::-webkit-inner-spin-button {
   margin-top: 0.5rem;
 }
 
-.btn:hover{
+.btn:hover {
   cursor: pointer;
   opacity: 0.7;
   transition: ease-in 300ms;
 }
 
-.btn-cls{
+.btn-cls {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.profile-img{
+.profile-img {
   width: 100px;
   height: 50px
 }

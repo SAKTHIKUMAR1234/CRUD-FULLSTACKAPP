@@ -1,13 +1,13 @@
 import axios from "axios"
 
 
-export const insertUser=async (data)=>{
+export const insertUser=async (details)=>{
     try {
-        const res=await axios.post("http://localhost:5000/Users/add",data,{
+        const res=await axios.post("http://localhost:5000/auth/user/add",details,{
                 headers:{
                     "Content-Type": "multipart/form-data"
                 },
-                withCredentials:true
+                withCredentials:true,
         });
         if (res.status == 401) {
             return false;
@@ -19,6 +19,7 @@ export const insertUser=async (data)=>{
             throw new Error(result);
         }
     } catch (error) {
+        console.log(error)
         return error;
     }
 }

@@ -14,53 +14,57 @@ const Login = () => {
     const navigate = useNavigate();
     const [disabled, setDisabled] = useState(false);
 
-    const submit=async ()=>{
+    const submit = async () => {
         setDisabled(true);
-        const details=getLoginDetails();
-        if(details[0]==null || details[1]==null){
+        const details = getLoginDetails();
+        if (details[0] == null || details[1] == null) {
             alert("Please Fill All the Data");
             setDisabled(false);
             return;
         }
-        if(!emailValidation(details[0])){
+        if (!emailValidation(details[0])) {
             alert("Enter Valid Email");
             setDisabled(false);
             return;
         }
-        else{
-            if(await isExist(details[0])){
-                await validateMainUser(details).then(async (res)=>{
-                    if(res.status===200){
+        else {
+            if (await isExist(details[0])) {
+                const data = {
+                    email: details[0],
+                    password: details[1]
+                }
+                await validateMainUser(data).then(async (res) => {
+                    if (res.status === 200) {
                         setDisabled(false);
                         navigate('/home');
                     }
-                    else{
+                    else {
 
-                        if(res.response.status===305){
+                        if (res.response.status === 305) {
                             alert("The User Id is not confirmed! An regenerated confirm mail is sent to you !!!");
-                            const response =await regenerateURL(details[0]);
-                            if(response){
+                            const response = await regenerateURL(details[0]);
+                            if (response) {
                                 alert("Mail Sended Successfully Check Your Mail");
                             }
-                            else{
+                            else {
                                 alert("Unable To send the email");
                             }
                             setDisabled(false);
                         }
-                        else{
+                        else {
                             alert("Wrong Password");
                             setDisabled(false);
                         }
-                       
+
                     }
                 });
             }
-            else{
+            else {
                 alert("The Email id not exit");
                 setDisabled(false);
             }
         }
-        
+
     }
     return (
         <>

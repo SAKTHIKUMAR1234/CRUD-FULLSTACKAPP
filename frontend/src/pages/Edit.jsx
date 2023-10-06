@@ -54,7 +54,7 @@ const Edit = () => {
     const [photoFile, setPhotoFile] = useState(null);
     const [prevFileName,setPrevFileName] = useState('');
 
-    useEffect(()=>{getPhoto('http://localhost:5000/'+updateValue.profilepath,updateValue.profilepath)},[])
+    useEffect(()=>{getPhoto('http://localhost:5000/auth/'+updateValue.profilepicname,updateValue.profilepicname)},[])
 
     const getPhoto = (url,filename) => {
         axios.get(url, { responseType: 'arraybuffer',withCredentials:true })

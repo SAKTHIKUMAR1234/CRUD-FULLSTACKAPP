@@ -1,5 +1,6 @@
 {
     "401":"UnAuthorized",
     "500":"Operational Error",
-    "305":"The User email is not confirmed"
+    "305":"The User email is not confirmed",
+    "404":"Not Found"
 }

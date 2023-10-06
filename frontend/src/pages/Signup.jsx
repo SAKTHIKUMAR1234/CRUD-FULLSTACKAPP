@@ -27,7 +27,14 @@ const Signup = () => {
             }
             else {
                 try {
-                    const result = await createMainUser(details);
+                    const data = {
+                        email:details.email,
+                        fname:details.fname,
+                        lname:details.fname,
+                        mobile:details.mobile,
+                        password:details.password1
+                    };
+                    const result = await createMainUser(data);
                     if (result instanceof Error) {
                         throw new Error(result);
                     }

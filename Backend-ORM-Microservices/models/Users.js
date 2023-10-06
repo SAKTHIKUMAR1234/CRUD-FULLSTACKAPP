@@ -1,7 +1,8 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database'); 
+const Admin = require('./Admin')
 
-const User = sequelize.define('User', {
+const User = sequelize.define('Users', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -12,11 +13,19 @@ const User = sequelize.define('User', {
     allowNull: false,
     unique: true,
   },
-  dob: DataTypes.DATE,
+  dob: DataTypes.STRING,
   fname: DataTypes.STRING,
   lname: DataTypes.STRING,
   address: DataTypes.STRING,
   profilepicname: DataTypes.STRING,
+  mobile:DataTypes.BIGINT,
+  createdByAdminId: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: Admin,
+      key: 'id',
+    }
+  }
 },
 {
   freezeTableName: true

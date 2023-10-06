@@ -7,7 +7,7 @@ import Form from '../components/Form'
 import { useNavigate } from 'react-router-dom'
 import { TiTick } from 'react-icons/ti'
 import { constructDetails } from '../components/Form'
-import { emailValidation, nameValidation, mobileValidation, addressValidation, dateValidation, imageValidation } from "../util/Validation";
+import { emailValidation, nameValidation, mobileValidation, addressValidation, dateValidation } from "../util/Validation";
 import { isNotExist } from '../util/emailExist'
 import { insertUser } from '../util/insertUser'
 import { useState } from 'react'

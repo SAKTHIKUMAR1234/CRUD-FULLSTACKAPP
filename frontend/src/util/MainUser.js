@@ -4,7 +4,7 @@ import axios from "axios"
 export const isExist=async (email)=>{
     
     try {
-       const response= await axios.get(`http://localhost:5000/mainUser/find/${email}`);
+       const response= await axios.get(`http://localhost:5000/admin/services/find/${email}`);
        if(response.data.length===0){
         return false;
        }
@@ -19,7 +19,7 @@ export const isExist=async (email)=>{
 
 export const createMainUser= async (data)=>{
     try {
-        const response = await axios.post('http://localhost:5000/mainUser/createUser',data);
+        const response = await axios.post('http://localhost:5000/admin/services/createAdmin',data);
         if(response.status==500){
             throw new Error(result);
         }
@@ -31,13 +31,10 @@ export const createMainUser= async (data)=>{
     }
 }
 
-export const validateMainUser=async (details)=>{
-    const data={
-        email:details[0],
-        pwd:details[1]
-    }
+export const validateMainUser=async (data)=>{
+   
     try {
-        const response = await axios.post('http://localhost:5000/mainUser/authenticateUser',data,{
+        const response = await axios.post('http://localhost:5000/admin/services/authenticate',data,{
             headers:{
                 'Content-Type':'application/json'
             },
@@ -57,7 +54,7 @@ export const validateMainUser=async (details)=>{
 
 export const logoutMainUser = async () =>{
     try {
-        const response = await axios.get('http://localhost:5000/mainUser/logout',{
+        const response = await axios.get('http://localhost:5000/admin/services/logout',{
             headers:{
                 'Content-Type':'application/json'
             },
@@ -77,7 +74,7 @@ export const logoutMainUser = async () =>{
 
 export const regenerateURL = async (email) =>{
     try {
-        const responce = await axios.get(`http://localhost:5000/mainUser/regenerateurl/${email}`,{
+        const responce = await axios.get(`http://localhost:5000/admin/services/regenerateurl/${email}`,{
             headers:{
                 'Content-Type':'application/json'
             },

@@ -2,10 +2,6 @@ import { useState } from "react";
 import { emailValidation, nameValidation, mobileValidation, addressValidation, dateValidation, currentDateString } from "../util/Validation";
 
 
-
-
-
-
 let details=new Array(7);
 
 const Form = (props) => {
